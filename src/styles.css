@@ -1,0 +1,185 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --font-display: var(--font-display);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.14 0.01 30);
+  --foreground: oklch(0.98 0.005 60);
+  --surface: oklch(0.18 0.012 30);
+  --card: oklch(0.19 0.014 30);
+  --card-foreground: oklch(0.98 0.005 60);
+  --popover: oklch(0.19 0.014 30);
+  --popover-foreground: oklch(0.98 0.005 60);
+  --primary: oklch(0.64 0.22 32);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-glow: oklch(0.72 0.21 45);
+  --secondary: oklch(0.24 0.02 30);
+  --secondary-foreground: oklch(0.98 0.005 60);
+  --muted: oklch(0.22 0.015 30);
+  --muted-foreground: oklch(0.72 0.02 60);
+  --accent: oklch(0.64 0.22 32);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.28 0.02 30);
+  --input: oklch(0.22 0.015 30);
+  --ring: oklch(0.64 0.22 32);
+  --font-display: "Oswald", "Inter", system-ui, sans-serif;
+
+  --gradient-primary: linear-gradient(135deg, oklch(0.55 0.22 22), oklch(0.72 0.21 45));
+  --gradient-hero: linear-gradient(180deg, oklch(0.14 0.01 30 / 0.3) 0%, oklch(0.10 0.01 30 / 0.95) 100%);
+  --gradient-radial-glow: radial-gradient(ellipse at top, oklch(0.64 0.22 32 / 0.18), transparent 60%);
+  --shadow-glow: 0 10px 40px -10px oklch(0.64 0.22 32 / 0.55);
+  --shadow-card: 0 8px 30px -12px oklch(0 0 0 / 0.6);
+}
+
+.dark { color-scheme: dark; }
+
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* Remove any default margin/gap */
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    /* Prevent layout shift / gap on mobile */
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility text-gradient-primary {
+  background-image: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-primary { background-image: var(--gradient-primary); }
+@utility bg-gradient-hero { background-image: var(--gradient-hero); }
+@utility bg-radial-glow { background-image: var(--gradient-radial-glow); }
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+@utility shadow-card-premium { box-shadow: var(--shadow-card); }
+
+/* ─── Scroll-reveal animations ─────────────────────────────────── */
+
+/* Elements that will animate in on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger utility — add delay via CSS custom property */
+.stagger-1 { transition-delay: 0.05s; }
+.stagger-2 { transition-delay: 0.12s; }
+.stagger-3 { transition-delay: 0.19s; }
+.stagger-4 { transition-delay: 0.26s; }
+.stagger-5 { transition-delay: 0.33s; }
+.stagger-6 { transition-delay: 0.40s; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ─── Hero section — remove bottom gap on mobile ───────────────── */
+section.hero-section {
+  /* Ensure hero fills to the very bottom of the viewport on mobile */
+  min-height: calc(100svh - 4.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fix hero bottom gradient to prevent visible gap */
+.hero-gradient-bottom {
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    var(--color-background) 100%
+  );
+}
